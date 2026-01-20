@@ -5,15 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora Total Rewards | Vini HRBP</title>
     
-    <!-- Tailwind CSS -->
+    <!-- Bibliotecas Externas (Requer Internet) -->
+    <!-- Tailwind CSS (Estilo) -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Chart.js -->
+    <!-- Chart.js (Gráficos) -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- FontAwesome -->
+    <!-- FontAwesome (Ícones) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
+    <!-- Google Fonts (Tipografia) -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
+    <!-- CSS Interno (Personalização) -->
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #F8FAFC; }
         
@@ -51,19 +53,19 @@
             z-index: 20;
         }
 
-        /* Table Styles */
+        /* Estilos da Tabela */
         .tr-header-section { background-color: #f1f5f9; color: #475569; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; }
         .tr-total { border-top: 2px solid #e2e8f0; background-color: #f8fafc; }
     </style>
 </head>
 <body class="text-slate-600 h-screen flex flex-col overflow-hidden relative">
 
-    <!-- SAVE INDICATOR -->
+    <!-- Indicador de Salvamento -->
     <div id="saveIndicator" class="fixed top-4 right-4 z-50 bg-white/80 backdrop-blur border border-slate-200 shadow-sm px-3 py-1.5 rounded-full text-[10px] text-slate-400 flex items-center gap-2 opacity-0 transition-opacity pointer-events-none">
         <i class="fa-solid fa-floppy-disk text-emerald-500"></i> Salvo
     </div>
 
-    <!-- WELCOME MODAL -->
+    <!-- Modal de Boas Vindas -->
     <div id="welcomeModal" class="absolute inset-0 z-50 bg-slate-50 flex items-center justify-center p-4 fade-in">
         <div class="max-w-3xl w-full bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
             <div class="p-10 text-center">
@@ -92,7 +94,7 @@
         </div>
     </div>
 
-    <!-- CONCEPTS MODAL -->
+    <!-- Modal de Conceitos -->
     <div id="conceptsModal" class="hidden absolute inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 fade-in">
         <div class="bg-white rounded-xl shadow-xl max-w-3xl w-full h-3/4 flex flex-col">
             <div class="p-5 border-b border-gray-100 flex justify-between items-center bg-gray-50/50 rounded-t-xl">
@@ -110,10 +112,10 @@
         </div>
     </div>
 
-    <!-- MAIN APP LAYOUT -->
+    <!-- APP CONTAINER -->
     <div id="appContainer" class="flex flex-col md:flex-row h-full opacity-0 transition-opacity duration-700">
         
-        <!-- SIDEBAR -->
+        <!-- SIDEBAR (Esquerda) -->
         <aside class="w-full md:w-[360px] bg-white border-r border-slate-200 flex flex-col h-full shadow-[4px_0_24px_rgba(0,0,0,0.02)] z-20">
             <div class="p-6 border-b border-slate-100 sticky top-0 bg-white z-10">
                 <div class="flex justify-between items-start mb-4">
@@ -163,7 +165,7 @@
 
             <div class="flex-1 overflow-y-auto p-6 space-y-8 custom-scroll pb-24 relative">
                 
-                <!-- ADVANCED PANEL -->
+                <!-- PAINEL AVANÇADO -->
                 <div id="advancedPanel" class="hidden absolute inset-0 bg-white z-20 p-6 space-y-5 animate-fade-in">
                     <div class="flex justify-between items-center border-b border-slate-100 pb-3">
                         <h3 class="text-xs font-bold text-amber-600 uppercase" data-i18n="advanced_config">Configurações Avançadas</h3>
@@ -203,7 +205,7 @@
                     </div>
                 </div>
 
-                <!-- SCENARIO A -->
+                <!-- CENÁRIO A -->
                 <div id="scenarioA" class="space-y-5">
                     <div class="flex items-center justify-between border-b border-slate-100 pb-2">
                         <h2 class="text-xs font-bold text-indigo-700 uppercase tracking-wide flex items-center gap-2">
@@ -230,7 +232,6 @@
                             </div>
                         </div>
 
-                        <!-- Bonus Multiplier Logic -->
                         <div>
                             <label class="block text-[11px] font-semibold text-slate-500 mb-1 uppercase tracking-wide" data-i18n="bonus_target">Bônus Target (Salários)</label>
                             <div class="flex gap-2">
@@ -253,7 +254,7 @@
                     </div>
                 </div>
 
-                <!-- SCENARIO B -->
+                <!-- CENÁRIO B -->
                 <div id="scenarioB" class="hidden space-y-5 pt-6 border-t border-dashed border-slate-300">
                     <div class="flex items-center justify-between border-b border-slate-100 pb-2">
                         <h2 class="text-xs font-bold text-emerald-700 uppercase tracking-wide flex items-center gap-2">
@@ -300,15 +301,15 @@
             </div>
         </aside>
 
-        <!-- DASHBOARD (Right) -->
+        <!-- DASHBOARD (Direita) -->
         <main class="flex-1 flex flex-col h-full bg-[#F8FAFC] relative overflow-hidden">
             
             <div class="flex-1 overflow-y-auto p-6 md:p-10 space-y-8 pb-20">
                 
-                <!-- VIEW 1: STANDARD DASHBOARD -->
+                <!-- DASHBOARD PADRÃO -->
                 <div id="standardView" class="animate-fade-in space-y-8">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <!-- Total Cost Card -->
+                        <!-- Card Custo Total -->
                         <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 relative overflow-hidden group">
                             <div class="absolute top-0 right-0 w-24 h-24 bg-indigo-50 rounded-bl-full -mr-6 -mt-6 transition-transform group-hover:scale-110"></div>
                             <div class="relative z-10">
@@ -324,7 +325,7 @@
                             </div>
                         </div>
 
-                        <!-- Analysis Card -->
+                        <!-- Card Análise -->
                         <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between">
                             <div>
                                 <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 flex items-center gap-2">
@@ -344,6 +345,7 @@
                         </div>
                     </div>
 
+                    <!-- Barra Compa-Ratio -->
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 relative overflow-hidden">
                         <div class="flex justify-between items-end mb-4">
                             <div>
@@ -371,7 +373,7 @@
                     </div>
                 </div>
 
-                <!-- VIEW 2: COMPARATIVE DASHBOARD -->
+                <!-- DASHBOARD COMPARATIVO -->
                 <div id="comparativeView" class="hidden animate-fade-in space-y-8">
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <!-- Col A -->
@@ -465,7 +467,7 @@
                     </div>
                 </div>
 
-                <!-- COMMON SECTION: TABLE & CHART -->
+                <!-- DETALHAMENTO -->
                 <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden animate-fade-in">
                     <div class="px-6 py-5 border-b border-slate-100 flex justify-between items-center bg-slate-50">
                         <h4 class="text-sm font-bold text-slate-700 uppercase flex items-center gap-2">
@@ -502,7 +504,7 @@
                     </div>
                 </div>
 
-                <!-- Chart -->
+                <!-- Gráfico -->
                 <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
                     <h4 class="text-sm font-bold text-slate-700 mb-6 uppercase tracking-wide" data-i18n="pkg_composition">Composição do Pacote</h4>
                     <div class="relative h-[300px] w-full">
@@ -512,7 +514,7 @@
 
             </div>
 
-            <!-- FIXED FOOTER -->
+            <!-- RODAPÉ FIXO -->
             <footer class="bg-white border-t border-slate-200 py-3 px-8 flex justify-between items-center z-30 text-[10px] text-slate-400 uppercase tracking-wide absolute bottom-0 w-full">
                 <span>V21.0 • HR TOOLS</span>
                 <div class="flex items-center gap-1">
@@ -555,7 +557,7 @@
                     fund: 'Fundo/FGTS (%)',
                     vac_days: 'Dias Férias',
                     fixed_costs: 'Custos Fixos (Mensal)',
-                    inflation: 'IPC Mensal Estimado (%)',
+                    inflation: 'IPC Mensual Estimado (%)',
                     scenario_a: 'Cenário A (Atual)',
                     scenario_b: 'Cenário B (Proposto)',
                     scenario_a_short: 'Cenário A',
@@ -618,7 +620,7 @@
                 }
             },
             ARG: { 
-                symbol: '$',
+                symbol: '$', 
                 locale: 'es-AR',
                 taxMode: 'Tasa Fija Est. (17%)',
                 chargesHint: 'Cargas Sociales + ART (~29%)',
@@ -706,7 +708,7 @@
         };
         let mainChart = null;
 
-        // --- CORE FUNCTIONS ---
+        // --- CORE FUNCTIONS (MOVED UP) ---
         function initChart() {
             const ctx = document.getElementById('mainChart').getContext('2d');
             if(mainChart) mainChart.destroy(); 
@@ -738,6 +740,7 @@
             try {
                 const inputs = JSON.parse(saved);
                 if(inputs.country) selectCountry(inputs.country);
+                
                 Object.keys(inputs).forEach(key => {
                     const el = document.getElementById(key);
                     if(el) {
@@ -766,6 +769,7 @@
                 const key = el.getAttribute('data-i18n');
                 if (t[key]) el.innerText = t[key];
             });
+            // Update placeholders
             document.getElementById('advHealth').placeholder = t.health_ph;
             document.getElementById('advDental').placeholder = t.dental_ph;
             document.getElementById('advLife').placeholder = t.life_ph;
@@ -790,6 +794,7 @@
                 showEl('inflationPanel', true);
             }
             
+            // apply translations
             applyTranslations(c);
 
             setText('lblChargesHint', i18n[c].chargesHint);
@@ -819,7 +824,7 @@
 
             document.getElementById('projMonths').addEventListener('input', (e) => {
                 state.months = parseInt(e.target.value);
-                const suffix = state.country === 'BR' ? ' Meses' : ' Meses'; 
+                const suffix = ' Meses'; 
                 document.getElementById('projMonthsDisplay').innerText = state.months + suffix;
                 const lbl = i18n[state.country].ui.total_cost_label;
                 document.querySelectorAll('.lbl-annual-cost').forEach(el => el.innerText = `${lbl} (${state.months}m)`);
@@ -1193,7 +1198,7 @@
             }
         }
         function resetData() {
-            localStorage.removeItem('vini_comp_calc_v21');
+            localStorage.removeItem('vini_comp_calc_v20');
             location.reload(); 
         }
         function updateChart() {
