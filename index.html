@@ -516,7 +516,7 @@
 
             <!-- RODAPÉ FIXO -->
             <footer class="bg-white border-t border-slate-200 py-3 px-8 flex justify-between items-center z-30 text-[10px] text-slate-400 uppercase tracking-wide absolute bottom-0 w-full">
-                <span>V21.0 • HR TOOLS</span>
+                <span>V22.0 • HR TOOLS</span>
                 <div class="flex items-center gap-1">
                     <span>Desenvolvido por</span>
                     <a href="mailto:rh.vinicius@gmail.com" class="font-bold text-indigo-600 hover:text-indigo-800 transition ml-1 flex items-center gap-1">
@@ -557,7 +557,7 @@
                     fund: 'Fundo/FGTS (%)',
                     vac_days: 'Dias Férias',
                     fixed_costs: 'Custos Fixos (Mensal)',
-                    inflation: 'IPC Mensual Estimado (%)',
+                    inflation: 'IPC Mensal Estimado (%)',
                     scenario_a: 'Cenário A (Atual)',
                     scenario_b: 'Cenário B (Proposto)',
                     scenario_a_short: 'Cenário A',
@@ -728,14 +728,14 @@
                 if(el.id) inputs[el.id] = el.type === 'checkbox' ? el.checked : el.value;
             });
             inputs.country = state.country;
-            localStorage.setItem('vini_comp_calc_v21', JSON.stringify(inputs));
+            localStorage.setItem('vini_comp_calc_v22', JSON.stringify(inputs));
             const ind = document.getElementById('saveIndicator');
             ind.style.opacity = '1';
             setTimeout(() => { ind.style.opacity = '0'; }, 1000);
         }
 
         function loadState() {
-            const saved = localStorage.getItem('vini_comp_calc_v21');
+            const saved = localStorage.getItem('vini_comp_calc_v22');
             if (!saved) return false;
             try {
                 const inputs = JSON.parse(saved);
@@ -824,7 +824,7 @@
 
             document.getElementById('projMonths').addEventListener('input', (e) => {
                 state.months = parseInt(e.target.value);
-                const suffix = ' Meses'; 
+                const suffix = state.country === 'BR' ? ' Meses' : ' Meses'; 
                 document.getElementById('projMonthsDisplay').innerText = state.months + suffix;
                 const lbl = i18n[state.country].ui.total_cost_label;
                 document.querySelectorAll('.lbl-annual-cost').forEach(el => el.innerText = `${lbl} (${state.months}m)`);
@@ -1198,7 +1198,7 @@
             }
         }
         function resetData() {
-            localStorage.removeItem('vini_comp_calc_v20');
+            localStorage.removeItem('vini_comp_calc_v22');
             location.reload(); 
         }
         function updateChart() {
